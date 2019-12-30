@@ -136,6 +136,13 @@ for plugin ($plugins); do
 done
 unset plugin
 
+# Declare git_prompt_info empty when git plugin is disabled
+if [[ -z $(echo $plugins | grep -x git) ]]; then
+	git_prompt_info() {
+		# Don't do anything
+	};
+fi;
+
 # Load all of your custom configurations from custom/
 for config_file ("$ZSH_CUSTOM"/*.zsh(N)); do
   source "$config_file"
