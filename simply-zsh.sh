@@ -1,4 +1,4 @@
-# Protect against non-zsh execution of Oh My Zsh (use POSIX syntax here)
+# Protect against non-zsh execution of Simply Zsh (use POSIX syntax here)
 [ -n "$ZSH_VERSION" ] || {
   # ANSI formatting function (\033[<code>m)
   # 0: reset, 1: bold, 4: underline, 22: no bold, 24: no underline, 31: red, 33: yellow
@@ -28,7 +28,7 @@
 
   {
     shell=$(ps -o pid,comm | awk "\$1 == $$ { print \$2 }")
-    printf "$(omz_f 1 31)Error:$(omz_f 22) Oh My Zsh can't be loaded from: $(omz_f 1)${shell}$(omz_f 22). "
+    printf "$(omz_f 1 31)Error:$(omz_f 22) Simply Zsh can't be loaded from: $(omz_f 1)${shell}$(omz_f 22). "
     printf "You need to run $(omz_f 1)zsh$(omz_f 22) instead.$(omz_f 0)\n"
     printf "$(omz_f 33)Here's the process tree:$(omz_f 22)\n\n"
     omz_ptree
@@ -49,7 +49,7 @@ fi
 
 # Make sure $ZSH_CACHE_DIR is writable, otherwise use a directory in $HOME
 if [[ ! -w "$ZSH_CACHE_DIR" ]]; then
-  ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+  ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/simply-zsh"
 fi
 
 # Create cache and completions dir and add to $fpath
@@ -61,7 +61,7 @@ if [[ "$DISABLE_AUTO_UPDATE" != true ]]; then
   source "$ZSH/tools/check_for_upgrade.sh"
 fi
 
-# Initializes Oh My Zsh
+# Initializes Simply Zsh
 
 # add a function path
 fpath=("$ZSH/functions" "$ZSH/completions" $fpath)
@@ -90,7 +90,7 @@ for plugin ($plugins); do
   elif is_plugin "$ZSH" "$plugin"; then
     fpath=("$ZSH/plugins/$plugin" $fpath)
   else
-    echo "[oh-my-zsh] plugin '$plugin' not found"
+    echo "[simply-zsh] plugin '$plugin' not found"
   fi
 done
 
@@ -137,7 +137,7 @@ unset zcompdump_revision zcompdump_fpath zcompdump_refresh
 # zcompile the completion dump file if the .zwc is older or missing.
 zrecompile -q -p "$ZSH_COMPDUMP" && command rm -f "$ZSH_COMPDUMP.zwc.old"
 
-# Load all of the config files in ~/oh-my-zsh that end in .zsh
+# Load all of the config files in ~/simply-zsh that end in .zsh
 # TIP: Add files you don't want in git to .gitignore
 for config_file ("$ZSH"/lib/*.zsh); do
   custom_config_file="$ZSH_CUSTOM/lib/${config_file:t}"
@@ -177,6 +177,6 @@ if [[ -n "$ZSH_THEME" ]]; then
   elif is_theme "$ZSH/themes" "$ZSH_THEME"; then
     source "$ZSH/themes/$ZSH_THEME.zsh-theme"
   else
-    echo "[oh-my-zsh] theme '$ZSH_THEME' not found"
+    echo "[simply-zsh] theme '$ZSH_THEME' not found"
   fi
 fi
