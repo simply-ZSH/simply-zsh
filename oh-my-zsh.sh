@@ -118,16 +118,8 @@ if ! command grep -q -Fx "$zcompdump_revision" "$ZSH_COMPDUMP" 2>/dev/null \
   zcompdump_refresh=1
 fi
 
-if [[ "$ZSH_DISABLE_COMPFIX" != true ]]; then
-  source "$ZSH/lib/compfix.zsh"
-  # Load only from secure directories
-  compinit -i -d "$ZSH_COMPDUMP"
-  # If completion insecurities exist, warn the user
-  handle_completion_insecurities &|
-else
-  # If the user wants it, load from all found directories
-  compinit -u -d "$ZSH_COMPDUMP"
-fi
+# Load from all found directories
+compinit -u -C -d "${ZSH_COMPDUMP}"
 
 # Append zcompdump metadata if missing
 if (( $zcompdump_refresh )) \
