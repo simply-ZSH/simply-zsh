@@ -14,7 +14,7 @@ if [ "$DISABLE_AUTO_UPDATE" != "true" ]; then
   env ZSH=$ZSH ZSH_CACHE_DIR=$ZSH_CACHE_DIR DISABLE_UPDATE_PROMPT=$DISABLE_UPDATE_PROMPT zsh -f $ZSH/tools/check_for_upgrade.sh
 fi
 
-# Initializes Oh My Zsh
+# Initializes Simply ZSH
 
 # add a function path
 fpath=($ZSH/functions $ZSH/completions $fpath)
@@ -44,7 +44,7 @@ for plugin ($plugins); do
   elif is_plugin $ZSH $plugin; then
     fpath=($ZSH/plugins/$plugin $fpath)
   else
-    echo "[oh-my-zsh] plugin '$plugin' not found"
+    echo "[simply-zsh] plugin '$plugin' not found"
   fi
 done
 
@@ -64,7 +64,7 @@ fi
 # Load from all found directories
 compinit -u -C -d "${ZSH_COMPDUMP}"
 
-# Load all of the config files in ~/oh-my-zsh that end in .zsh
+# Load all of the config files in ~/simply-zsh that end in .zsh
 # TIP: Add files you don't want in git to .gitignore
 for config_file ($ZSH/lib/*.zsh); do
   custom_config_file="${ZSH_CUSTOM}/lib/${config_file:t}"
@@ -98,7 +98,7 @@ if [[ "$ZSH_THEME" == "random" ]]; then
   ((N=(RANDOM%N)+1))
   RANDOM_THEME=${themes[$N]}
   source "$RANDOM_THEME"
-  echo "[oh-my-zsh] Random theme '$RANDOM_THEME' loaded..."
+  echo "[simply-zsh] Random theme '$RANDOM_THEME' loaded..."
 else
   if [ ! "$ZSH_THEME" = ""  ]; then
     if [ -f "$ZSH_CUSTOM/$ZSH_THEME.zsh-theme" ]; then
