@@ -12,7 +12,6 @@ if [[ -z "$ZSH_CUSTOM" ]]; then
     ZSH_CUSTOM="$ZSH/custom"
 fi
 
-
 is_plugin() {
   local base_dir=$1
   local name=$2
@@ -56,6 +55,12 @@ for config_file ($ZSH/lib/*.zsh); do
   source $config_file
 done
 
+# Provide an empty prompt info to handle themes in case the
+# git plugin is disabled
+git_prompt_info() {
+	# Don't do anything
+};
+
 # Load all of the plugins that were defined in ~/.zshrc
 for plugin ($plugins); do
   if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then
@@ -64,13 +69,6 @@ for plugin ($plugins); do
     source $ZSH/plugins/$plugin/$plugin.plugin.zsh
   fi
 done
-
-# Declare git_prompt_info empty when git plugin is disabled
-if [[ -z $(echo $plugins | grep -x git) ]]; then
-	git_prompt_info() {
-		# Don't do anything
-	};
-fi;
 
 # Load all of your custom configurations from custom/
 for config_file ($ZSH_CUSTOM/*.zsh(N)); do
