@@ -41,6 +41,16 @@
 # If ZSH is not defined, use the current script's directory.
 [[ -z "$ZSH" ]] && export ZSH="${${(%):-%x}:a:h}"
 
+# Set cache directory in HOME
+if [[ -z "$ZSH_CACHE_DIR" ]]; then
+  ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/simply-zsh"
+fi
+
+# Create the simply-zsh cache directory if not already existing
+if [[ ! -d "$ZSH_CACHE_DIR" ]]; then
+  mkdir "$ZSH_CACHE_DIR"
+fi
+
 # Initializes Simply Zsh
 
 # add a function path
@@ -84,7 +94,7 @@ fi
 
 # Save the location of the current completion dump file.
 if [[ -z "$ZSH_COMPDUMP" ]]; then
-  ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+  ZSH_COMPDUMP="${ZSH_CACHE_DIR}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 fi
 
 # Construct zcompdump OMZ metadata
